@@ -20,7 +20,8 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
     ]);
-});
+})
+->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -28,7 +29,14 @@ Route::get('/dashboard', function () {
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('/companies', [CompaniesController::class, 'index'])
+Route::get('/companies', function () {
+    return Inertia::render('Companies');
+})
     ->name('companies');
+
+Route::get('/employees', function () {
+    return Inertia::render('Employees');
+})
+    ->name('employees');
 
 require __DIR__.'/auth.php';

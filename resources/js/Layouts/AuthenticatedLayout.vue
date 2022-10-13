@@ -19,7 +19,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('welcome')">
                                     <div class="hidden sm:block text-2xl">Admin Panel</div>
                                 </Link>
                             </div>
@@ -36,7 +36,7 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('employees')" :active="route().current('employees')">
                                     Employees
                                 </NavLink>
                             </div>
