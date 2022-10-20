@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import NavLink from '@/Components/NavLink.vue';
 
 defineProps({
     canLogin: Boolean,
@@ -21,10 +22,10 @@ defineProps({
                                     <div class="hidden sm:block text-2xl">Admin Panel</div>
                                 </Link>
                             </div>
-                            <div v-if="canLogin" class="hidden px-6 py-4 sm:block">
-                                <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</Link>
+                            <div v-if="canLogin" class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink v-if="$page.props.auth.user" :href="route('dashboard')" :active="route().current('dashboard')">Dashboard</NavLink>
                                 <template v-else>
-                                    <Link :href="route('login')" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</Link>
+                                    <NavLink :href="route('dashboard')" :active="route().current('login')">Log in</NavLink>
                                 </template>
                             </div>
                         </div>

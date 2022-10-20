@@ -13,7 +13,12 @@ class CompaniesController extends Controller
         $companies = Company::all();
 
         return Inertia::render('Companies', [
-            'companies' => $companies
+            'companies' => $companies->toArray()
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Companies/AddCompany');
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\CompaniesController;
+use App\Http\Controllers\EmployeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,22 +22,25 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
     ]);
 })
-->name('welcome');
+    ->name('welcome');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })
+        ->name('dashboard');
+    
+    Route::get('/companies', [CompaniesController::class, 'index'])
+        ->name('companies');
 
-Route::get('/companies', function () {
-    return Inertia::render('Companies');
-})
-    ->name('companies');
+    Route::get('/companies/add', [CompaniesController::class, 'create'])
+        ->name('addcompany');
+    
+    Route::get('/employees', [EmployeesController::class, 'index'])
+        ->name('employees');
 
-Route::get('/employees', function () {
-    return Inertia::render('Employees');
-})
-    ->name('employees');
+    Route::get('/employees/add', [EmployeesController::class, 'create'])
+        ->name('addemployee');
+});
 
 require __DIR__.'/auth.php';
