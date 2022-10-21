@@ -1,8 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { Link } from '@inertiajs/inertia-vue3';
 </script>
 
 <template>
@@ -18,12 +19,29 @@ import { Link } from '@inertiajs/inertia-vue3';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <PrimaryButton class="ml-4 mt-4">
-                        <Link>Submit</Link>
-                    </PrimaryButton>
-                    <div class="flex p-6 bg-white border-b justify-center items-center border-gray-200">
-
-                    </div>
+                    <form @submit.prevent="submit" class="ml-4">
+                        <div class="mt-4">
+                            <InputLabel for="name" value="Name*" />
+                            <TextInput id="name" class="mt-1 p-2" />
+                        </div>
+                        <div class="mt-4">
+                            <InputLabel for="email" value="Email" />
+                            <TextInput id="email" class="mt-1 p-2" />
+                        </div>
+                        <div class="mt-4">
+                            <label for="logo" value="Logo" />
+                            <input id="logo" class="mt-1" type="file" accept="image/*" />
+                        </div>
+                        <div class="mt-4">
+                            <InputLabel for="website" value="Website" />
+                            <TextInput id="website" class="mt-1 p-2" />
+                        </div>
+                        <div class="my-4">
+                            <PrimaryButton>
+                                Submit
+                            </PrimaryButton>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

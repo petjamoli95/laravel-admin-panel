@@ -25,22 +25,24 @@ Route::get('/', function () {
     ->name('welcome');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('dashboard', function () {
         return Inertia::render('Dashboard');
     })
         ->name('dashboard');
     
-    Route::get('/companies', [CompaniesController::class, 'index'])
+    Route::get('companies', [CompaniesController::class, 'index'])
         ->name('companies');
 
-    Route::get('/companies/add', [CompaniesController::class, 'create'])
+    Route::get('companies/add', [CompaniesController::class, 'create'])
         ->name('addcompany');
     
-    Route::get('/employees', [EmployeesController::class, 'index'])
+    Route::get('employees', [EmployeesController::class, 'index'])
         ->name('employees');
 
-    Route::get('/employees/add', [EmployeesController::class, 'create'])
+    Route::get('employees/add', [EmployeesController::class, 'create'])
         ->name('addemployee');
+
+    Route::post('employees/add', [EmployeesController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';
