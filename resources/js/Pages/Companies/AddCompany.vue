@@ -2,8 +2,25 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head, useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+
+const form = useForm({
+    name: '',
+    email: '',
+    logo: [],
+    website: ''
+});
+
+const submit = () => {
+    form.post(route('addcompany'), {
+        onFinish: () => form.reset(),
+    });
+}
+
+const onFileChange =(e) => {
+  let logo = e.target.files || e.dataTransfer.files;
+}
 </script>
 
 <template>
@@ -22,22 +39,22 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
                     <form @submit.prevent="submit" class="ml-4">
                         <div class="mt-4">
                             <InputLabel for="name" value="Name*" />
-                            <TextInput id="name" class="mt-1 p-2" />
+                            <TextInput id="name" class="mt-1 p-2" v-model="form.firstname" required autofocus />
                         </div>
                         <div class="mt-4">
                             <InputLabel for="email" value="Email" />
-                            <TextInput id="email" class="mt-1 p-2" />
+                            <TextInput id="email" class="mt-1 p-2" v-model="form.firstname" required autofocus />
                         </div>
                         <div class="mt-4">
                             <label for="logo" value="Logo" />
-                            <input id="logo" class="mt-1" type="file" accept="image/*" />
+                            <input id="logo" class="mt-1" type="file" accept="image/*" v-on:change="form.logo" required autofocus />
                         </div>
                         <div class="mt-4">
                             <InputLabel for="website" value="Website" />
-                            <TextInput id="website" class="mt-1 p-2" />
+                            <TextInput id="website" class="mt-1 p-2" v-model="form.firstname"  autofocus />
                         </div>
                         <div class="my-4">
-                            <PrimaryButton>
+                            <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 Submit
                             </PrimaryButton>
                         </div>

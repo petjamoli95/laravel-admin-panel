@@ -35,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('companies/add', [CompaniesController::class, 'create'])
         ->name('addcompany');
+
+    Route::post('companies/add', [CompaniesController::class, 'store']);
     
     Route::get('employees', [EmployeesController::class, 'index'])
         ->name('employees');
