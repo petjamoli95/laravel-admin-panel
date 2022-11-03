@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('company');
-            $table->foreign('company')->references('name')->on('companies')->nullable();
+            $table->foreign('company')->references('name')->on('companies')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
         });

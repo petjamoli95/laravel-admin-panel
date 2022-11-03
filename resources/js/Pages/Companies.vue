@@ -35,7 +35,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                                 <tr v-for="company in companies">
                                     <td class="border px-4 py-2">{{ company.name }}</td>
                                     <td class="border px-4 py-2">{{ company.email }}</td>
-                                    <td class="border px-4 py-2">{{ company.logo }}</td>
+                                    <td class="border px-4 py-2"><img :src=company.logo></td>
                                     <td class="border px-4 py-2">{{ company.website }}</td>
                                 </tr>
                             </tbody>
