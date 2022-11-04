@@ -52,10 +52,10 @@ class CompaniesController extends Controller
 
     public function edit($id)
     {
-        $employee = Employee::where('id', $id);
+        $company = Company::where('id', $id);
 
         return Inertia::render('Companies/Edit', [
-            'employee' => $employee
+            'company' => $company
         ]);
     }
 }

@@ -55,10 +55,10 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $companies = Company::all();
-        $company = Company::where('id', $id);
+        $employee = Employee::where('id', $id);
 
         return Inertia::render('Employees/Edit', [
-            'company' => $company,
+            'employee' => $employee,
             'companies' => $companies->toArray()
         ]);
     }
