@@ -14,7 +14,7 @@ class EmployeesController extends Controller
     {
         $employees = Employee::all();
 
-        return Inertia::render('Employees', [
+        return Inertia::render('Employees/Index', [
             'employees' => $employees->toArray()
         ]);
     }
@@ -24,19 +24,21 @@ class EmployeesController extends Controller
 
         $companies = Company::all();
 
-        return Inertia::render('Employees/AddEmployee', [
+        return Inertia::render('Employees/Create', [
             'companies' => $companies->toArray()
         ]);
     }
 
     public function store(Request $request)
     {
+        $regex = 'regex:/^(?:((\+?\d{2,3})|(\(\+?\d{2,3}\))) ?)?(((\d{2}[\ \-\.]?){3,5}\d{2})|((\d{3}[\ \-\.]?){2}\d{4}))$/';
+
         $request->validate([
-            'firstname' => 'required|max:160',
-            'lastname' => 'required',
-            'company' => 'required',
-            'email' => 'unique|email|max:255',
-            'phone' => 'regex:^(?:((\+?\d{2,3})|(\(\+?\d{2,3}\))) ?)?(((\d{2}[\ \-\.]?){3,5}\d{2})|((\d{3}[\ \-\.]?){2}\d{4}))$'
+            'firstname' => 'required|max:80',
+            'lastname' => 'required|max:80',
+            'company' => 'required|max:160',
+            'email' => 'email|unique:employees,email|max:255',
+            'phone' => $regex
         ]);
 
         $employee = new Employee();
@@ -47,6 +49,6 @@ class EmployeesController extends Controller
         $employee->phone = $request->input('phone');
         $employee->save();
 
-        return redirect()->route('employees');
+        return redirect()->route('employees.index');
     }
 }

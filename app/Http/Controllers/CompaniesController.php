@@ -13,23 +13,25 @@ class CompaniesController extends Controller
     {
         $companies = Company::all();
 
-        return Inertia::render('Companies', [
+        return Inertia::render('Companies/Index', [
             'companies' => $companies->toArray()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Companies/AddCompany');
+        return Inertia::render('Companies/Create');
     }
 
     public function store(Request $request)
     {
+        $regex = 'regex:/^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/';
+
         $request->validate([
             'name' => 'required|unique:companies,name|max:160',
-            'email' => 'unique|email|max:255',
-            'logo' => 'file|dimensions:max_width=100,max_height=100',
-            'website' => 'url|max:64'
+            'email' => 'unique:companies,email|email|max:255',
+            'logo' => 'image|dimensions:max_width=100,max_height=100|max:80',
+            'website' => $regex
         ]);
 
         $name = $request->input('name');
@@ -37,18 +39,19 @@ class CompaniesController extends Controller
         $extension = $img->getClientOriginalExtension();
         $path = "logos/" . $name . "/" . $name . "logo." . $extension;
 
-        $imgsize = getimagesize($img);
-        $width = $imgsize[0];
-        $height = $imgsize[1];
-
         $company = new Company();
         $company->name = $name;
         $company->email = $request->input('email');
         Storage::disk('public')->put($path, file_get_contents($img));
-        $company->logo = $path;
+        $company->logo = Storage::url($path);
         $company->website = $request->input('website');
         $company->save();
 
-        return redirect()->route('companies');
+        return redirect()->route('companies.index');
+    }
+
+    public function edit()
+    {
+        
     }
 }
