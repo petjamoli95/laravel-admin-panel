@@ -50,8 +50,12 @@ class CompaniesController extends Controller
         return redirect()->route('companies.index');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        
+        $employee = Employee::where('id', $id);
+
+        return Inertia::render('Companies/Edit', [
+            'employee' => $employee
+        ]);
     }
 }

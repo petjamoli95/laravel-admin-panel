@@ -15,7 +15,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('employees.store'), {
+    form.post(route('employees.index'), {
         onFinish: () => form.reset(),
     });
 }

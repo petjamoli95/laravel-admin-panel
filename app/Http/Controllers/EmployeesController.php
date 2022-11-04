@@ -51,4 +51,15 @@ class EmployeesController extends Controller
 
         return redirect()->route('employees.index');
     }
+
+    public function edit($id)
+    {
+        $companies = Company::all();
+        $company = Company::where('id', $id);
+
+        return Inertia::render('Employees/Edit', [
+            'company' => $company,
+            'companies' => $companies->toArray()
+        ]);
+    }
 }

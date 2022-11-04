@@ -36,17 +36,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('companies/create', [CompaniesController::class, 'create'])
         ->name('companies.create');
 
-    Route::post('companies/store', [CompaniesController::class, 'store'])
-        ->name('companies.store');
-    
+    Route::post('companies/store', [CompaniesController::class, 'store']);
+
+    Route::get('companies/{id}/edit', [CompaniesController::class, 'edit'])
+        ->name('companies.edit');
+
+        
     Route::get('employees', [EmployeesController::class, 'index'])
         ->name('employees.index');
 
     Route::get('employees/create', [EmployeesController::class, 'create'])
         ->name('employees.create');
 
-    Route::post('employees/store', [EmployeesController::class, 'store'])
-        ->name('employees.store');
+    Route::post('employees/store', [EmployeesController::class, 'store']);
+
+    Route::get('employees/{id}/edit', [EmployeesController::class, 'edit'])
+        ->name('employees.edit');
 });
 
 require __DIR__.'/auth.php';
