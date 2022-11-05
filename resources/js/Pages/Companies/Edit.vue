@@ -6,15 +6,19 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputError from '@/Components/InputError.vue';
 
+const props = defineProps({
+    company: Array
+});
+
 const form = useForm({
-    name: '',
-    email: '',
+    name: props.company[0].name,
+    email: props.company[0].email,
     logo: null,
-    website: ''
+    website: props.company[0].website
 });
 
 const submit = () => {
-    form.post(route('companies.store'), {
+    form.post(route('companies.update', props.company.id), {
         onFinish: () => form.reset(),
     });
 }
@@ -55,7 +59,7 @@ const onChange = (e) => {
                         </div>
                         <div class="mt-4">
                             <InputLabel for="website" value="Website" />
-                            <TextInput id="website" class="mt-1 p-2" v-model="form.website"  autofocus />
+                            <TextInput id="website" class="mt-1 p-2" v-model="form.website" autofocus />
                             <InputError class="mt-2" :message="form.errors.website" />
                         </div>
                         <div class="my-4">
@@ -69,3 +73,11 @@ const onChange = (e) => {
         </div>
     </AuthenticatedLayout>
 </template>
+
+<script>
+export default {
+    props: {
+        company: Array
+    }
+}
+</script>

@@ -41,7 +41,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('companies/{id}/edit', [CompaniesController::class, 'edit'])
         ->name('companies.edit');
 
+    Route::put('companies/{id}', [CompaniesController::class, 'update'])
+        ->name('companies.update');
         
+
+
     Route::get('employees', [EmployeesController::class, 'index'])
         ->name('employees.index');
 
@@ -52,6 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('employees/{id}/edit', [EmployeesController::class, 'edit'])
         ->name('employees.edit');
+
+    Route::put('employees/{id}', [EmployeesController::class, 'update'])
+        ->name('employees.update');
 });
 
 require __DIR__.'/auth.php';

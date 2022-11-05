@@ -1,4 +1,5 @@
 <script setup>
+
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -6,16 +7,21 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputError from '@/Components/InputError.vue';
 
+const props = defineProps({
+    employee: Array,
+    companies: Array
+});
+
 const form = useForm({
-    firstname: '',
-    lastname: '',
-    company: '',
-    email: '',
-    phone: ''
+    firstname: props.employee[0].firstname,
+    lastname: props.employee[0].lastname,
+    company: props.employee[0].company,
+    email: props.employee[0].email,
+    phone: props.employee[0].phone
 });
 
 const submit = () => {
-    form.post(route('employees.store'), {
+    form.put(route('employees.update', props.employee[0].id),  {
         onFinish: () => form.reset(),
     });
 }
@@ -78,11 +84,3 @@ const submit = () => {
         </div>
     </AuthenticatedLayout>
 </template>
-
-<script>
-export default {
-    props: {
-        companies: Array
-    }
-}
-</script>

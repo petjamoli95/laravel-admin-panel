@@ -55,11 +55,35 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $companies = Company::all();
-        $employee = Employee::where('id', $id);
+        $employee = Employee::where('id', $id)->get();
 
         return Inertia::render('Employees/Edit', [
-            'employee' => $employee,
+            'employee' => $employee->toArray(),
             'companies' => $companies->toArray()
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $regex = 'regex:/^(?:((\+?\d{2,3})|(\(\+?\d{2,3}\))) ?)?(((\d{2}[\ \-\.]?){3,5}\d{2})|((\d{3}[\ \-\.]?){2}\d{4}))$/';
+
+        $request->validate([
+            'firstname' => 'required|max:80',
+            'lastname' => 'required|max:80',
+            'company' => 'required|max:160',
+            'email' => 'email|max:255|unique:employees,email,' . $id,
+            'phone' => $regex
+        ]);
+
+        Employee::where('id', $request->id)
+            ->update([
+                'firstname' => $request->input('firstname'),
+                'lastname' => $request->input('lastname'),
+                'company' => $request->input('company'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone')
+            ]);
+
+        return redirect()->route('employees.index');
     }
 }
