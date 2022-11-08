@@ -44,6 +44,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('companies/{id}', [CompaniesController::class, 'update'])
         ->name('companies.update');
         
+    Route::delete('companies/{id}', [CompaniesController::class, 'destroy'])
+        ->name('companies.destroy');
+
 
 
     Route::get('employees', [EmployeesController::class, 'index'])
@@ -59,6 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::put('employees/{id}', [EmployeesController::class, 'update'])
         ->name('employees.update');
+
+    Route::delete('employees/{id}', [EmployeesController::class, 'destroy'])
+        ->name('employees.destroy');
 });
 
 require __DIR__.'/auth.php';

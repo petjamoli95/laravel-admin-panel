@@ -49,8 +49,8 @@ const onChange = (e) => {
                             <InputError class="mt-2" :message="form.errors.email" />
                         </div>
                         <div class="mt-4">
-                            <label for="logo" value="Logo" />
-                            <input id="logo" class="mt-1" type="file" accept="image/*" v-on:change="onChange" required autofocus />
+                            <InputLabel for="logo" value="Logo" />
+                            <input id="logo" class="mt-2" type="file" accept="image/*" v-on:change="onChange" required autofocus />
                             <InputError class="mt-2" :message="form.errors.logo" />
                         </div>
                         <div class="mt-4">

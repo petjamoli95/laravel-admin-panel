@@ -13,12 +13,12 @@ const props = defineProps({
 const form = useForm({
     name: props.company[0].name,
     email: props.company[0].email,
-    logo: null,
+    // logo: null,
     website: props.company[0].website
 });
 
 const submit = () => {
-    form.post(route('companies.update', props.company.id), {
+    form.put(route('companies.update', props.company[0].id), {
         onFinish: () => form.reset(),
     });
 }
@@ -52,11 +52,11 @@ const onChange = (e) => {
                             <TextInput id="email" class="mt-1 p-2" v-model="form.email" required autofocus />
                             <InputError class="mt-2" :message="form.errors.email" />
                         </div>
-                        <div class="mt-4">
+                        <!-- <div class="mt-4">
                             <label for="logo" value="Logo" />
                             <input id="logo" class="mt-1" type="file" accept="image/*" v-on:change="onChange" required autofocus />
                             <InputError class="mt-2" :message="form.errors.logo" />
-                        </div>
+                        </div> -->
                         <div class="mt-4">
                             <InputLabel for="website" value="Website" />
                             <TextInput id="website" class="mt-1 p-2" v-model="form.website" autofocus />
@@ -73,11 +73,3 @@ const onChange = (e) => {
         </div>
     </AuthenticatedLayout>
 </template>
-
-<script>
-export default {
-    props: {
-        company: Array
-    }
-}
-</script>

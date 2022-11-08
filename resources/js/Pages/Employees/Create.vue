@@ -6,6 +6,10 @@ import { Head, useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputError from '@/Components/InputError.vue';
 
+const props = defineProps({
+    companies: Array
+});
+
 const form = useForm({
     firstname: '',
     lastname: '',
@@ -50,7 +54,7 @@ const submit = () => {
                         <div class="mt-4">
                             <InputLabel for="company" value="Company*" />
                             <select id="company" class="mt-1 p-2" v-model="form.company" required autofocus>
-                                <option v-for="company in companies" :value="company.name">{{ company.name }}</option>
+                                <option v-for="company in props.companies" :value="company.name">{{ company.name }}</option>
                             </select>
                             <InputError class="mt-2" :message="form.errors.company" />
 
@@ -78,11 +82,3 @@ const submit = () => {
         </div>
     </AuthenticatedLayout>
 </template>
-
-<script>
-export default {
-    props: {
-        companies: Array
-    }
-}
-</script>
