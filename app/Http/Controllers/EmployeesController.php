@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use Inertia\Inertia;
 use App\Models\Company;
-
+use App\Http\Requests\EmployeeRequest;
 
 class EmployeesController extends Controller
 {
@@ -29,18 +29,8 @@ class EmployeesController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-        $regex = 'regex:/^(?:((\+?\d{2,3})|(\(\+?\d{2,3}\))) ?)?(((\d{2}[\ \-\.]?){3,5}\d{2})|((\d{3}[\ \-\.]?){2}\d{4}))$/';
-
-        $request->validate([
-            'firstname' => 'required|max:80',
-            'lastname' => 'required|max:80',
-            'company' => 'required|max:160',
-            'email' => 'email|unique:employees,email|max:255',
-            'phone' => $regex
-        ]);
-
         $employee = new Employee();
         $employee->firstname = $request->input('firstname');
         $employee->lastname = $request->input('lastname');
@@ -63,18 +53,8 @@ class EmployeesController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request)
     {
-        $regex = 'regex:/^(?:((\+?\d{2,3})|(\(\+?\d{2,3}\))) ?)?(((\d{2}[\ \-\.]?){3,5}\d{2})|((\d{3}[\ \-\.]?){2}\d{4}))$/';
-
-        $request->validate([
-            'firstname' => 'required|max:80',
-            'lastname' => 'required|max:80',
-            'company' => 'required|max:160',
-            'email' => 'email|max:255|unique:employees,email,' . $id,
-            'phone' => $regex
-        ]);
-
         Employee::where('id', $request->id)
             ->update([
                 'firstname' => $request->input('firstname'),

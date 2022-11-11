@@ -13,6 +13,7 @@ const props = defineProps({
 });
 
 const form = useForm({
+    id: props.employee[0].id,
     firstname: props.employee[0].firstname,
     lastname: props.employee[0].lastname,
     company: props.employee[0].company,

@@ -29,42 +29,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })
         ->name('dashboard');
-    
-    Route::get('companies', [CompaniesController::class, 'index'])
-        ->name('companies.index');
 
-    Route::get('companies/create', [CompaniesController::class, 'create'])
-        ->name('companies.create');
+    Route::resource('companies', CompaniesController::class, ['except' => ['show']]);
 
-    Route::post('companies/store', [CompaniesController::class, 'store']);
-
-    Route::get('companies/{id}/edit', [CompaniesController::class, 'edit'])
-        ->name('companies.edit');
-
-    Route::put('companies/{id}', [CompaniesController::class, 'update'])
-        ->name('companies.update');
-        
-    Route::delete('companies/{id}', [CompaniesController::class, 'destroy'])
-        ->name('companies.destroy');
-
-
-
-    Route::get('employees', [EmployeesController::class, 'index'])
-        ->name('employees.index');
-
-    Route::get('employees/create', [EmployeesController::class, 'create'])
-        ->name('employees.create');
-
-    Route::post('employees/store', [EmployeesController::class, 'store']);
-
-    Route::get('employees/{id}/edit', [EmployeesController::class, 'edit'])
-        ->name('employees.edit');
-
-    Route::put('employees/{id}', [EmployeesController::class, 'update'])
-        ->name('employees.update');
-
-    Route::delete('employees/{id}', [EmployeesController::class, 'destroy'])
-        ->name('employees.destroy');
+    Route::resource('employees', EmployeesController::class, ['except' => ['show']]);
 });
 
 require __DIR__.'/auth.php';

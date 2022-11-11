@@ -11,9 +11,9 @@ const props = defineProps({
 });
 
 const form = useForm({
+    id: props.company[0].id,
     name: props.company[0].name,
     email: props.company[0].email,
-    // logo: null,
     website: props.company[0].website
 });
 

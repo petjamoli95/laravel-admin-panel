@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Company;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\CompanyRequest;
 
 class CompaniesController extends Controller
 {
@@ -23,17 +24,8 @@ class CompaniesController extends Controller
         return Inertia::render('Companies/Create');
     }
 
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        $regex = 'regex:/^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/';
-
-        $request->validate([
-            'name' => 'required|unique:companies,name|max:160',
-            'email' => 'unique:companies,email|email|max:255',
-            'logo' => 'image|dimensions:max_width=100,max_height=100|max:80',
-            'website' => $regex
-        ]);
-
         $name = $request->input('name');
         $img = $request->file('logo');
         $extension = $img->getClientOriginalExtension();
@@ -61,33 +53,14 @@ class CompaniesController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request)
     {
-        $regex = 'regex:/^((ftp|http|https):\/\/)?(www.)?(?!.*(ftp|http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+((\/)[\w#]+)*(\/\w+\?[a-zA-Z0-9_]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?\/?$/';
-
-        $request->validate([
-            'name' => 'required|max:160|unique:companies,name,' . $id,
-            'email' => 'email|max:255|unique:companies,email,' . $id,
-            'logo' => 'image|dimensions:min_width=100,max_width=100,min_height=100,max_height=100|max:80',
-            'website' => $regex
-        ]);
-
-        $name = $request->input('name');
-
         Company::where('id', $request->id)
             ->update([
-                'name' => $name,
+                'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'website' => $request->input('website')
             ]);
-
-        // $extension = $img->getClientOriginalExtension();
-        // $path = "logos/" . $name . "/" . $name . "logo." . $extension;
-
-        // if (Storage::disk('public')->exists($path)) {
-        //     Storage::disk('public')->delete($path);
-        //     Storage::disk('public')->put($path, file_get_contents($request->file('logo')));
-        // }
         
         return redirect()->route('companies.index');
     }
