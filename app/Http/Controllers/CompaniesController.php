@@ -55,12 +55,7 @@ class CompaniesController extends Controller
 
     public function update(CompanyRequest $request)
     {
-        Company::where('id', $request->id)
-            ->update([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'website' => $request->input('website')
-            ]);
+        Company::where('id', $request->id)->update($request->validated());
         
         return redirect()->route('companies.index');
     }

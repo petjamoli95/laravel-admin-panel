@@ -21,7 +21,6 @@ class EmployeesController extends Controller
 
     public function create()
     {
-
         $companies = Company::all();
 
         return Inertia::render('Employees/Create', [
@@ -31,13 +30,7 @@ class EmployeesController extends Controller
 
     public function store(EmployeeRequest $request)
     {
-        $employee = new Employee();
-        $employee->firstname = $request->input('firstname');
-        $employee->lastname = $request->input('lastname');
-        $employee->company = $request->get('company');
-        $employee->email = $request->input('email');
-        $employee->phone = $request->input('phone');
-        $employee->save();
+        Employee::create($request->validated());
 
         return redirect()->route('employees.index');
     }
@@ -55,14 +48,7 @@ class EmployeesController extends Controller
 
     public function update(EmployeeRequest $request)
     {
-        Employee::where('id', $request->id)
-            ->update([
-                'firstname' => $request->input('firstname'),
-                'lastname' => $request->input('lastname'),
-                'company' => $request->input('company'),
-                'email' => $request->input('email'),
-                'phone' => $request->input('phone')
-            ]);
+        Employee::where('id', $request->id)->update($request->validated());
 
         return redirect()->route('employees.index');
     }

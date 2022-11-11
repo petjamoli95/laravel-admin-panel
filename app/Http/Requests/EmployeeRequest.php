@@ -31,4 +31,15 @@ class EmployeeRequest extends FormRequest
             'phone' => 'regex:/^(?:((\+?\d{2,3})|(\(\+?\d{2,3}\))) ?)?(((\d{2}[\ \-\.]?){3,5}\d{2})|((\d{3}[\ \-\.]?){2}\d{4}))$/'
         ];
     }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'company' => $this->company,
+            'email' => $this->email,
+            'phone' => $this->phone
+        ]);
+    }
 }
