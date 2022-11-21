@@ -19,7 +19,7 @@ class CompanySeeder extends Seeder
         DB::table('companies')->insert([
             'name' => Str('test company'),
             'email' => Str('testcompany@email.com'),
-            'logo' => Str('testimage.png'),
+            'logo' => Str('/storage/logos/test company/test companylogo.png'),
             'website' => Str('testcompanywebsite.com'),
         ]);
     }
