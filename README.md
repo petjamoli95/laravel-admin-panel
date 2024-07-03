@@ -6,7 +6,7 @@ A basic admin panel project for managing companies and their employees.
 
 Clone the repository.
 
-Use PHP and Composer container to install the app dependencies:
+Install app dependencies:
 Run ```docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
