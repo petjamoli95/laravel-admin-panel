@@ -6,18 +6,26 @@ A basic admin panel project for managing companies and their employees.
 
 Clone the repository.
 
-Run ```composer install```
+Use PHP and Composer container to install the app dependencies:
+Run ```docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs```
 
-Run ```npm install```
-
+Copy example .env:
 Run ```cp .env.example .env```
 
-Run ```npm run dev```
+Start Sail:
+Run ```./vendor/bin/sail up```
 
+Generate app key:
 Run ```php artisan key:generate```
 
+Migrate database:
 Run ```php artisan migrate```
 
-Run ```php artisan db:seed```
-
+Launch server:
 Run ```php artisan serve```
+Run ```npm run dev```
