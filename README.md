@@ -7,7 +7,7 @@ A basic admin panel project for managing companies and their employees.
 Clone the repository.
 
 Install app dependencies:
-Run ```docker run --rm \
+```docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v $(pwd):/var/www/html \
     -w /var/www/html \
@@ -15,17 +15,20 @@ Run ```docker run --rm \
     composer install --ignore-platform-reqs```
 
 Copy example .env:
-Run ```cp .env.example .env```
+```cp .env.example .env```
 
 Start Sail:
-Run ```./vendor/bin/sail up```
+```./vendor/bin/sail up```
 
 Generate app key:
-Run ```php artisan key:generate```
+```php artisan key:generate```
 
 Migrate database:
-Run ```php artisan migrate```
+```php artisan migrate```
+
+Seed the database with dummy data:
+```php artisan db:seed```
 
 Launch server:
-Run ```php artisan serve```
-Run ```npm run dev```
+```php artisan serve```
+```npm run dev```
