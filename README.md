@@ -40,4 +40,5 @@ Seed the database with dummy data:
 Launch server:
 
 ```php artisan serve```
+
 ```npm run dev```
